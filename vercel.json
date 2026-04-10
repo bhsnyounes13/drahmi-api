@@ -1,1 +1,7 @@
-{}
+{
+  "functions": {
+    "run.php": {
+      "runtime": "vercel-php@0.9.0"
+    }
+  }
+}
