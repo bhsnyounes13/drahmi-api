@@ -28,10 +28,10 @@ if (isset($routes[$key])) {
         case 'login':
             $email = $input['email'] ?? '';
             $password = $input['password'] ?? '';
-            if ($email && $password) {
+            if ($email === 'demo@test.com' && $password === 'test123') {
                 echo json_encode(['success' => true, 'token' => 'demo_token', 'user' => ['id' => 1, 'email' => $email]]);
             } else {
-                http_response_code(400);
+                http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
             }
             break;
