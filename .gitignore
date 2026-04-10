@@ -1,0 +1,29 @@
+# Ignore logs
+logs/
+*.log
+
+# Ignore database
+*.db
+*.sqlite
+
+# Ignore test files
+test*.php
+debug*.php
+direct_test.php
+
+# Ignore system files
+.htaccess
+
+# Node/Vercel
+/node_modules/
+.vercel/
+
+# PHP
+/vendor/
+composer.phar
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
