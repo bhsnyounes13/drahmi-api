@@ -1,0 +1,66 @@
+2026-04-10 13:51:34 [POST] /api/auth/login - body: 2 bytes: {\
+2026-04-10 13:52:17 [POST] /api/auth/login - body: 2 bytes: {\
+2026-04-10 13:52:28 [POST] /test.php - body: 2 bytes: {\
+2026-04-10 13:53:34 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:53:40 [GET] /api/health - body: 0 bytes: 
+2026-04-10 13:53:45 [GET] /api/categories - body: 0 bytes: 
+2026-04-10 13:54:56 [GET] /api/health - body: 0 bytes: 
+2026-04-10 13:54:56 [GET] api/health - body: 0 bytes
+2026-04-10 13:55:50 [GET] /api/health - body: 0 bytes: 
+2026-04-10 13:55:50 [GET] /api/health - body: 0 bytes
+2026-04-10 13:55:56 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:55:56 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 13:56:01 [GET] /api/categories - body: 0 bytes: 
+2026-04-10 13:56:01 [GET] /api/categories - body: 0 bytes
+2026-04-10 13:57:01 [GET] /api/health - body: 0 bytes: 
+2026-04-10 13:57:01 [GET] /api/health - body: 0 bytes
+2026-04-10 13:57:07 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:57:07 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 13:58:08 [GET] /api/auth/login - body: 0 bytes: 
+2026-04-10 13:58:08 [GET] /api/auth/login - body: 0 bytes
+2026-04-10 13:58:08 [GET] /api/auth/login - body: 0 bytes: 
+2026-04-10 13:58:08 [GET] /api/auth/login - body: 0 bytes
+2026-04-10 13:58:09 [GET] /favicon.ico - body: 0 bytes: 
+2026-04-10 13:58:09 [GET] /favicon.ico - body: 0 bytes
+2026-04-10 14:00:06 [GET] /api/health - body: 0 bytes: 
+2026-04-10 14:00:06 [GET] /api/health - body: 0 bytes
+2026-04-10 14:00:19 [POST] /api/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 14:00:19 [POST] /api/login - body: 52 bytes
+2026-04-10 14:01:18 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 14:01:18 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 14:04:26 [GET] /api/health - body: 0 bytes: 
+2026-04-10 14:04:26 [GET] /api/health - body: 0 bytes
+2026-04-10 14:04:56 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 14:04:56 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 15:15:16 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 15:15:16 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 15:16:19 [POST] /api/auth/login - body: 33 bytes: {"email":"tet","password":"jsjd"}
+2026-04-10 15:16:19 [POST] /api/auth/login - body: 33 bytes
+2026-04-10 15:16:33 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 15:16:33 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 15:23:29 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 15:23:29 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 15:25:34 [POST] /api/auth/login - body: 51 bytes: {"email":"test@drahmi.com","password":"passwor123"}
+2026-04-10 15:25:34 [POST] /api/auth/login - body: 51 bytes
+2026-04-10 15:25:37 [POST] /api/auth/login - body: 51 bytes: {"email":"test@drahmi.com","password":"passwor123"}
+2026-04-10 15:25:37 [POST] /api/auth/login - body: 51 bytes
+2026-04-10 15:25:44 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 15:25:44 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:16:19 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:16:19 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:17:05 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:17:05 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:18:09 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:18:09 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:55:47 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:55:47 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:56:20 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:56:20 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 16:58:15 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 16:58:15 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 17:03:05 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 17:03:05 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 21:45:02 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 21:45:02 [POST] /api/auth/login - body: 52 bytes
+2026-04-10 21:45:38 [POST] /api/auth/login - body: 52 bytes: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 21:45:38 [POST] /api/auth/login - body: 52 bytes

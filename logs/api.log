@@ -1,0 +1,17 @@
+2026-04-10 13:35:46 - /test_login.php/api/auth/login
+2026-04-10 13:36:40 - LOGIN request: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:40:40 - LOGIN request: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:42:15 [POST] /api.php/login
+2026-04-10 13:42:15 - LOGIN request: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:50:36 [POST] /api/auth/login
+2026-04-10 13:50:36 [POST] api/auth/login - body: 2 bytes
+2026-04-10 13:50:36 - LOGIN request: {\
+2026-04-10 13:51:34 [POST] api/auth/login - body: 2 bytes
+2026-04-10 13:51:34 - LOGIN request: {\
+2026-04-10 13:52:17 [POST] api/auth/login - body: 2 bytes
+2026-04-10 13:52:17 - LOGIN request: {\
+2026-04-10 13:52:28 [POST] test.php - body: 2 bytes
+2026-04-10 13:53:34 [POST] api/auth/login - body: 52 bytes
+2026-04-10 13:53:34 - LOGIN request: {"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:53:40 [GET] api/health - body: 0 bytes
+2026-04-10 13:53:45 [GET] api/categories - body: 0 bytes

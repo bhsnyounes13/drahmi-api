@@ -1,0 +1,30 @@
+[10-Apr-2026 13:35:18 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1 no such function: NOW in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php:47
+Stack trace:
+#0 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php(47): PDO->prepare('UPDATE utilisat...')
+#1 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Service.php(58): AuthModel->updateLastLogin(1)
+#2 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Controller.php(30): AuthService->login('test@drahmi.com', 'password123')
+#3 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(98): AuthController->login()
+#4 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(47): Router->executeHandler(Array, Array)
+#5 C:\Users\Younes\Desktop\test\drahmi-api\index.php(89): Router->dispatch()
+#6 {main}
+  thrown in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php on line 47
+[10-Apr-2026 13:53:05 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1 no such function: NOW in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php:47
+Stack trace:
+#0 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php(47): PDO->prepare('UPDATE utilisat...')
+#1 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Service.php(58): AuthModel->updateLastLogin(1)
+#2 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Controller.php(32): AuthService->login('test@drahmi.com', 'password123')
+#3 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(98): AuthController->login()
+#4 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(47): Router->executeHandler(Array, Array)
+#5 C:\Users\Younes\Desktop\test\drahmi-api\index.php(101): Router->dispatch()
+#6 {main}
+  thrown in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php on line 47
+[10-Apr-2026 13:53:19 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1 no such function: NOW in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php:47
+Stack trace:
+#0 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php(47): PDO->prepare('UPDATE utilisat...')
+#1 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Service.php(58): AuthModel->updateLastLogin(1)
+#2 C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Controller.php(32): AuthService->login('test@drahmi.com', 'password123')
+#3 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(98): AuthController->login()
+#4 C:\Users\Younes\Desktop\test\drahmi-api\core\Router.php(47): Router->executeHandler(Array, Array)
+#5 C:\Users\Younes\Desktop\test\drahmi-api\index.php(101): Router->dispatch()
+#6 {main}
+  thrown in C:\Users\Younes\Desktop\test\drahmi-api\modules\Auth\Model.php on line 47

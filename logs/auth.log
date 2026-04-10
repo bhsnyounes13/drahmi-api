@@ -1,0 +1,11 @@
+2026-04-10 13:48:55 login input: {\
+2026-04-10 13:49:15 login input: 2 bytes
+{\
+2026-04-10 13:49:32 login input: 42 bytes
+email=test@drahmi.com&password=password123
+2026-04-10 13:49:46 login input: 2 bytes
+{\
+2026-04-10 13:53:05 login input: 52 bytes
+{"email":"test@drahmi.com","password":"password123"}
+2026-04-10 13:53:19 login input: 52 bytes
+{"email":"test@drahmi.com","password":"password123"}
