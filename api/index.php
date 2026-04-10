@@ -98,4 +98,8 @@ $router->get('/api/health', function() {
     ]);
 });
 
+$requestUri = $_GET['path'] ?? $_SERVER['REQUEST_URI'] ?? '/';
+$requestUri = strtok($requestUri, '?');
+$_SERVER['REQUEST_URI'] = $requestUri;
+
 $router->dispatch();
