@@ -361,6 +361,238 @@ try {
         echo json_encode(['success' => true, 'message' => 'Goal created', 'data' => ['id' => $id]]);
         exit;
     }
+
+    // --- Profil (aligné client Flutter : GET/PUT /api/user, GET /api/auth/profile) ---
+    if ($method === 'GET' && ($path === '/api/user' || $path === '/api/auth/profile')) {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        $stmt = $db->prepare("SELECT id, nom, prenom, email, devise FROM utilisateur WHERE id = ?");
+        $stmt->execute([$decoded->id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            echo json_encode(['success' => false, 'message' => 'User not found']);
+            exit;
+        }
+        echo json_encode(['success' => true, 'data' => $row]);
+        exit;
+    }
+
+    if ($method === 'PUT' && $path === '/api/user') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        $fields = [];
+        $params = [];
+        foreach (['prenom', 'nom', 'date_naissance', 'taille_abitable', 'revenu_mensuel', 'repartition', 'devise'] as $col) {
+            if (array_key_exists($col, $data)) {
+                $fields[] = "$col = ?";
+                $params[] = $data[$col];
+            }
+        }
+        if ($fields) {
+            $params[] = $decoded->id;
+            $sql = 'UPDATE utilisateur SET ' . implode(', ', $fields) . ' WHERE id = ?';
+            try {
+                $stmt = $db->prepare($sql);
+                $stmt->execute($params);
+            } catch (Exception $e) {
+                $stmt2 = $db->prepare('UPDATE utilisateur SET nom = ?, prenom = ? WHERE id = ?');
+                $stmt2->execute([$data['nom'] ?? '', $data['prenom'] ?? '', $decoded->id]);
+            }
+        }
+        echo json_encode(['success' => true, 'message' => 'Profile updated']);
+        exit;
+    }
+
+    // POST /api/categories — création catégorie utilisateur
+    if ($method === 'POST' && $path === '/api/categories') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        if (empty($data['nom'])) {
+            echo json_encode(['success' => false, 'message' => 'nom required']);
+            exit;
+        }
+        $stmt = $db->prepare("INSERT INTO categorie (utilisateur_id, nom, icone, type, couleur) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $decoded->id,
+            $data['nom'],
+            $data['icone'] ?? 'folder',
+            $data['type'] ?? 'depense',
+            $data['couleur'] ?? '#6A63D6',
+        ]);
+        echo json_encode(['success' => true, 'data' => ['id' => (int)$db->lastInsertId()]]);
+        exit;
+    }
+
+    // Dettes / factures / épargne (schémas type create_sqlite / modules)
+    if ($method === 'GET' && $path === '/api/dettes') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        try {
+            $stmt = $db->prepare("SELECT * FROM dette WHERE utilisateur_id = ? ORDER BY id DESC");
+            $stmt->execute([$decoded->id]);
+            echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => true, 'data' => []]);
+        }
+        exit;
+    }
+
+    if ($method === 'POST' && $path === '/api/dettes') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        $m = (float)($data['montant'] ?? 0);
+        $nom = $data['nom'] ?? 'Dette';
+        try {
+            $stmt = $db->prepare("INSERT INTO dette (utilisateur_id, nom, montant_initial, montant_restant, taux_interet) VALUES (?, ?, ?, ?, 0)");
+            $stmt->execute([$decoded->id, $nom, $m, $m]);
+            echo json_encode(['success' => true, 'data' => ['id' => (int)$db->lastInsertId()]]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+        exit;
+    }
+
+    if ($method === 'GET' && $path === '/api/factures') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        try {
+            $stmt = $db->prepare("SELECT * FROM facture WHERE utilisateur_id = ? ORDER BY date_echeance ASC");
+            $stmt->execute([$decoded->id]);
+            echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => true, 'data' => []]);
+        }
+        exit;
+    }
+
+    if ($method === 'POST' && $path === '/api/factures') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        try {
+            $stmt = $db->prepare("INSERT INTO facture (utilisateur_id, nom, montant, date_echeance, paye) VALUES (?, ?, ?, ?, 0)");
+            $stmt->execute([
+                $decoded->id,
+                $data['nom'] ?? 'Facture',
+                (float)($data['montant'] ?? 0),
+                $data['date_echeance'] ?? date('Y-m-d'),
+            ]);
+            echo json_encode(['success' => true, 'data' => ['id' => (int)$db->lastInsertId()]]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+        exit;
+    }
+
+    if ($method === 'GET' && $path === '/api/savings') {
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (!str_starts_with($token, 'Bearer ')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'No token provided']);
+            exit;
+        }
+        $decoded = JwtHelper::decode(substr($token, 7));
+        if (!$decoded) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid token']);
+            exit;
+        }
+        try {
+            $stmt = $db->prepare("SELECT COALESCE(SUM(montant), 0) as total FROM epargne WHERE utilisateur_id = ?");
+            $stmt->execute([$decoded->id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $act = (float)($row['total'] ?? 0);
+            $obj = 50000.0;
+            $prog = $obj > 0 ? min(1.0, $act / $obj) : 0.0;
+            echo json_encode([
+                'success' => true,
+                'data' => [
+                    'objectif_montant' => $obj,
+                    'montant_actuel' => $act,
+                    'progress' => $prog,
+                ],
+            ]);
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => true,
+                'data' => ['objectif_montant' => 50000, 'montant_actuel' => 30000, 'progress' => 0.6],
+            ]);
+        }
+        exit;
+    }
     
     // GET DASHBOARD
     if ($method === 'GET' && $path === '/api/dashboard') {
